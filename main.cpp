@@ -36,6 +36,7 @@ int main()
     printArray(sorted, size);
     cout << "Index: " << index << endl;
 
+    cout << "Singly Linked List" << endl;
     SinglyLinkedList<string>* newLinkedList = new SinglyLinkedList<string>();
     newLinkedList->append("world");
     newLinkedList->append("Jack");
@@ -49,6 +50,21 @@ int main()
     newLinkedList->print();
     cout << newLinkedList->indexOf("hello") << endl;
     cout << newLinkedList->getSize() << endl;
+
+    cout << "Doubly Linked List" << endl;
+    DoublyLinkedList<string>* newLinkedList2 = new DoublyLinkedList<string>();
+    newLinkedList2->append("world");
+    newLinkedList2->append("Jack");
+    newLinkedList2->append("Do");
+    newLinkedList2->insertToFirst("hello");
+    newLinkedList2->insertAfter("from", 1);
+    newLinkedList2->append("wrong value");
+    newLinkedList2->append("wrong value 2");
+    newLinkedList2->remove("wrong value");
+    newLinkedList2->removeAt(5);
+    newLinkedList2->print();
+    cout << newLinkedList2->indexOf("hello") << endl;
+    cout << newLinkedList2->getSize() << endl;
 
     return 0;
 }
