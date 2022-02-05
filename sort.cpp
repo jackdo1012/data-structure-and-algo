@@ -2,6 +2,12 @@
 
 class Sort {
 public:
+    /*
+     * @param arr: an array of integers
+     * @param n: length of the array
+     * @param order: 1: ascending, 0: descending
+     * @return: sorted array
+     */
     int* bubbleSort(int arr[], int n, int order = 1)
     {
         if (order != -1 && order != 1)
@@ -34,6 +40,13 @@ public:
         }
         return arr;
     }
+
+    /*
+     * @param arr: an array of integers
+     * @param n: length of the array
+     * @param order: 1: ascending, 0: descending
+     * @return: sorted array
+     */
     int* selectionSort(int arr[], int n, int order = 1)
     {
         if (order != -1 && order != 1)
@@ -56,6 +69,13 @@ public:
         }
         return arr;
     }
+
+    /*
+     * @param arr: an array of integers
+     * @param n: length of the array
+     * @param order: 1: ascending, 0: descending
+     * @return: sorted array
+     */
     int* insetionSort(int arr[], int n, int order = 1)
     {
         if (order != -1 && order != 1)

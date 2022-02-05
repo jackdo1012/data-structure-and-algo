@@ -1,3 +1,4 @@
+#include "./linkedList.cpp"
 #include "./search.cpp"
 #include "./sort.cpp"
 #include <iostream>
@@ -34,5 +35,20 @@ int main()
     cout << "Sorted array: ";
     printArray(sorted, size);
     cout << "Index: " << index << endl;
+
+    SinglyLinkedList<string>* newLinkedList = new SinglyLinkedList<string>();
+    newLinkedList->append("world");
+    newLinkedList->append("Jack");
+    newLinkedList->append("Do");
+    newLinkedList->insertToFirst("hello");
+    newLinkedList->insertAfter("from", 1);
+    newLinkedList->append("wrong value");
+    newLinkedList->append("wrong value 2");
+    newLinkedList->remove("wrong value");
+    newLinkedList->removeAt(5);
+    newLinkedList->print();
+    cout << newLinkedList->indexOf("hello") << endl;
+    cout << newLinkedList->getSize() << endl;
+
     return 0;
 }
