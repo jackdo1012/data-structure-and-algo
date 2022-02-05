@@ -122,8 +122,7 @@ public:
     {
         if (index >= size)
         {
-            cout << "Index out of bounds" << endl;
-            return;
+            throw out_of_range("Index out of range");
         }
         if (this->head == NULL)
         {
@@ -186,8 +185,7 @@ public:
     {
         if (index >= size)
         {
-            cout << "Index out of bounds" << endl;
-            return;
+            throw out_of_range("Index out of range");
         }
         if (this->head == NULL)
         {
@@ -363,8 +361,7 @@ public:
     {
         if (index >= size)
         {
-            cout << "Index out of bounds" << endl;
-            return;
+            throw out_of_range("Index out of range");
         }
         if (this->head == NULL)
         {
@@ -409,8 +406,7 @@ public:
     {
         if (index >= size)
         {
-            cout << "Index out of bounds" << endl;
-            return;
+            throw out_of_range("Index out of range");
         }
         if (this->head == NULL)
         {

@@ -1,3 +1,4 @@
+#include "./array.cpp"
 #include "./linkedList.cpp"
 #include "./search.cpp"
 #include "./sort.cpp"
@@ -14,6 +15,7 @@ void printArray(int arr[], int n)
 
 int main()
 {
+    cout << "-----------------Algorithm-----------------" << endl;
     Sort sort;
     Search search;
 
@@ -36,7 +38,8 @@ int main()
     printArray(sorted, size);
     cout << "Index: " << index << endl;
 
-    cout << "Singly Linked List" << endl;
+    cout << "-----------------Data Structure-----------------" << endl;
+    cout << "---Singly Linked List---" << endl;
     SinglyLinkedList<string>* newLinkedList = new SinglyLinkedList<string>();
     newLinkedList->append("world");
     newLinkedList->append("Jack");
@@ -51,7 +54,7 @@ int main()
     cout << newLinkedList->indexOf("hello") << endl;
     cout << newLinkedList->getSize() << endl;
 
-    cout << "Doubly Linked List" << endl;
+    cout << "---Doubly Linked List---" << endl;
     DoublyLinkedList<string>* newLinkedList2 = new DoublyLinkedList<string>();
     newLinkedList2->append("world");
     newLinkedList2->append("Jack");
@@ -65,6 +68,20 @@ int main()
     newLinkedList2->print();
     cout << newLinkedList2->indexOf("hello") << endl;
     cout << newLinkedList2->getSize() << endl;
+
+    cout << "---Dynamic Array---" << endl;
+    DynamicArray<string>* newDynamicArray = new DynamicArray<string>();
+    newDynamicArray->push("wrong value");
+    newDynamicArray->push("world");
+    newDynamicArray->push("from");
+    newDynamicArray->push("Jack");
+    newDynamicArray->push("Do");
+    newDynamicArray->push("wrong value");
+    newDynamicArray->push("wrong value 2");
+    newDynamicArray->remove("wrong value");
+    newDynamicArray->removeAt(5);
+    newDynamicArray->set(0, "Hello");
+    newDynamicArray->print();
 
     return 0;
 }
