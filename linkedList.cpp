@@ -1,11 +1,17 @@
 #include "header.h"
 
 template <typename T>
-class LinkedList {
+class LinkedListADT {
 private:
     int size;
 
 public:
+    // get at index
+    virtual T get(int index) = 0;
+    // get the first element
+    virtual T getFirst() = 0;
+    // get the last element
+    virtual T getLast() = 0;
     // get size
     virtual int getSize() = 0;
     // clear the linked list
@@ -20,6 +26,10 @@ public:
     virtual void remove(T data) = 0;
     // remove the node at the index of the linked list
     virtual void removeAt(int index) = 0;
+    // remove the first node of the linked list
+    virtual void removeFirst() = 0;
+    // remove the last node of the linked list
+    virtual void removeLast() = 0;
     // find the index of a node data in the linked list
     virtual int indexOf(T data) = 0;
     // specify if the linked list contains the data
@@ -73,7 +83,7 @@ public:
 };
 
 template <typename T>
-class SinglyLinkedList : public LinkedList<T> {
+class SinglyLinkedList : public LinkedListADT<T> {
 private:
     SLLNode<T>* head;
     int size;
@@ -83,6 +93,48 @@ public:
     {
         head = NULL;
         size = 0;
+    }
+
+    T get(int index) override
+    {
+        if (index < 0 || index >= size)
+        {
+            throw "Index out of bounds";
+        }
+
+        SLLNode<T>* current = head;
+        for (int i = 0; i < index; i++)
+        {
+            current = current->getNext();
+        }
+
+        return current->getData();
+    }
+
+    T getFirst() override
+    {
+        if (this->size == 0)
+        {
+            throw "Empty linked list";
+        }
+
+        return head->getData();
+    }
+
+    T getLast() override
+    {
+        if (this->size == 0)
+        {
+            throw "Empty linked list";
+        }
+
+        SLLNode<T>* current = head;
+        while (current->getNext() != NULL)
+        {
+            current = current->getNext();
+        }
+
+        return current->getData();
     }
 
     int getSize() override
@@ -126,8 +178,7 @@ public:
         }
         if (this->head == NULL)
         {
-            cout << "List is empty" << endl;
-            return;
+            throw new invalid_argument("List is empty");
         }
         SLLNode<T>* temp = this->head;
         for (int i = 0; i < index; i++)
@@ -162,8 +213,7 @@ public:
     {
         if (this->head == NULL)
         {
-            cout << "List is empty" << endl;
-            return;
+            throw new invalid_argument("List is empty");
         }
         SLLNode<T>* temp = this->head;
         for (int i = 0; i < size; i++)
@@ -189,8 +239,7 @@ public:
         }
         if (this->head == NULL)
         {
-            cout << "List is empty" << endl;
-            return;
+            throw new invalid_argument("List is empty");
         }
         if (index == 0)
         {
@@ -209,6 +258,35 @@ public:
         temp->setNext(itemNeededToBeRemoved->getNext());
         free(itemNeededToBeRemoved);
         size--;
+    }
+
+    void removeFirst() override
+    {
+        if (this->head == NULL)
+        {
+            throw new invalid_argument("List is empty");
+        }
+        SLLNode<T>* temp = this->head;
+        this->head = this->head->getNext();
+        free(temp);
+        this->size--;
+    }
+
+    void removeLast() override
+    {
+        if (this->head == NULL)
+        {
+            throw new invalid_argument("List is empty");
+        }
+        SLLNode<T>* temp = this->head;
+        for (int i = 0; i < size - 1; i++)
+        {
+            temp = temp->getNext();
+        }
+        SLLNode<T>* itemNeededToBeRemoved = temp->getNext();
+        temp->setNext(NULL);
+        free(itemNeededToBeRemoved);
+        this->size--;
     }
 
     int indexOf(T data) override
@@ -292,7 +370,7 @@ public:
 };
 
 template <typename T>
-class DoublyLinkedList : public LinkedList<T> {
+class DoublyLinkedList : public LinkedListADT<T> {
 private:
     DLLNode<T>* head;
     DLLNode<T>* tail;
@@ -304,6 +382,42 @@ public:
         this->head = NULL;
         this->tail = NULL;
         this->size = 0;
+    }
+
+    T get(int index) override
+    {
+        if (this->head == NULL)
+        {
+            throw new invalid_argument("List is empty");
+        }
+        if (index >= size)
+        {
+            throw out_of_range("Index out of range");
+        }
+        DLLNode<T>* temp = this->head;
+        for (int i = 0; i < index; i++)
+        {
+            temp = temp->getNext();
+        }
+        return temp->getData();
+    }
+
+    T getFirst() override
+    {
+        if (this->head == NULL)
+        {
+            throw new invalid_argument("List is empty");
+        }
+        return this->head->getData();
+    }
+
+    T getLast() override
+    {
+        if (this->head == NULL)
+        {
+            throw new invalid_argument("List is empty");
+        }
+        return this->tail->getData();
     }
 
     int getSize() override
@@ -365,8 +479,7 @@ public:
         }
         if (this->head == NULL)
         {
-            cout << "List is empty" << endl;
-            return;
+            throw new invalid_argument("List is empty");
         }
         DLLNode<T>* temp = this->head;
         for (int i = 0; i < index; i++)
@@ -383,7 +496,11 @@ public:
     {
         if (this->head == NULL)
         {
-            cout << "List is empty" << endl;
+            throw new invalid_argument("List is empty");
+        }
+        if (this->size == 1)
+        {
+            this->clear();
             return;
         }
         DLLNode<T>* temp = this->head;
@@ -391,6 +508,16 @@ public:
         {
             if (temp->getNext()->getData() == data)
             {
+                if (temp == NULL)
+                {
+                    this->removeFirst();
+                    return;
+                }
+                if (temp->getNext()->getNext() == NULL)
+                {
+                    this->removeLast();
+                    return;
+                }
                 free(temp->getNext());
                 temp->setNext(temp->getNext()->getNext());
                 temp->getNext()->setPrev(temp);
@@ -408,10 +535,14 @@ public:
         {
             throw out_of_range("Index out of range");
         }
+        if (this->size == 1)
+        {
+            this->clear();
+            return;
+        }
         if (this->head == NULL)
         {
-            cout << "List is empty" << endl;
-            return;
+            throw new invalid_argument("List is empty");
         }
         if (index == 0)
         {
@@ -427,6 +558,16 @@ public:
         {
             temp = temp->getNext();
         }
+        if (temp == NULL)
+        {
+            this->removeFirst();
+            return;
+        }
+        if (temp->getNext()->getNext() == NULL)
+        {
+            this->removeLast();
+            return;
+        }
         DLLNode<T>* itemNeededToBeRemoved = temp->getNext();
         temp->setNext(itemNeededToBeRemoved->getNext());
         if (itemNeededToBeRemoved->getNext() != NULL)
@@ -435,6 +576,57 @@ public:
         }
         free(itemNeededToBeRemoved);
         size--;
+    }
+
+    void removeFirst() override
+    {
+        if (this->head == NULL)
+        {
+            throw new invalid_argument("List is empty");
+        }
+        DLLNode<T>* temp = this->head;
+        this->head = temp->getNext();
+        if (this->size == 0)
+        {
+            this->head = NULL;
+        }
+        else if (this->size == 1)
+        {
+            this->clear();
+            return;
+        }
+        else
+        {
+            this->head->setPrev(NULL);
+        }
+        free(temp);
+        this->size--;
+    }
+
+    void removeLast() override
+    {
+        if (this->head == NULL)
+        {
+            throw new invalid_argument("List is empty");
+        }
+        DLLNode<T>* temp = this->tail;
+        if (this->size == 0)
+        {
+            this->head = NULL;
+            this->tail = NULL;
+        }
+        else if (this->size == 1)
+        {
+            this->clear();
+            return;
+        }
+        else
+        {
+            this->tail->getPrev()->setNext(NULL);
+            this->tail = this->tail->getPrev();
+            free(temp);
+        }
+        this->size--;
     }
 
     int indexOf(T data) override

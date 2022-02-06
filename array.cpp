@@ -4,7 +4,7 @@ template <typename T>
 class DynamicArray {
 private:
     T* arr;
-    int size;
+    int size = 0;
     int capacity;
     int defaultCapacity = 10;
 
@@ -25,7 +25,7 @@ public:
         this->arr = new T[capacity];
     }
 
-    T* getArr()
+    T* getArray()
     {
         return this->arr;
     }
@@ -66,7 +66,7 @@ public:
         this->arr[this->size++] = data;
     }
 
-    // remove value from the beginning of the array
+    // remove the last value from the array
     void pop()
     {
         if (this->size == 0)
@@ -74,11 +74,12 @@ public:
             throw out_of_range("Array is empty");
         }
         T* newArr = new T[this->capacity];
-        for (int i = 1; i < this->size; i++)
+        for (int i = 0; i < this->size - 1; i++)
         {
-            newArr[i - 1] = this->arr[i];
+            newArr[i] = this->arr[i];
         }
-
+        delete[] this->arr;
+        this->arr = newArr;
         this->size--;
     }
 
@@ -104,17 +105,6 @@ public:
         }
         delete[] this->arr;
         this->arr = newArr;
-        this->capacity = --this->size;
-    }
-
-    // remove value at index in the array without shifting the rest of the array
-    void removeAtWithoutMoving(int index)
-    {
-        if (index < 0 || index >= this->size)
-        {
-            throw out_of_range("Index out of range");
-        }
-        this->arr[index] = NULL;
         this->capacity = --this->size;
     }
 
@@ -145,7 +135,7 @@ public:
 
     bool isEmpty()
     {
-        return this->size() == 0;
+        return this->size == 0;
     }
 
     bool contains(T data)

@@ -1,7 +1,6 @@
-#include "./array.cpp"
-#include "./linkedList.cpp"
 #include "./search.cpp"
 #include "./sort.cpp"
+#include "./stack.cpp"
 #include <iostream>
 
 void printArray(int arr[], int n)
@@ -71,7 +70,7 @@ int main()
 
     cout << "---Dynamic Array---" << endl;
     DynamicArray<string>* newDynamicArray = new DynamicArray<string>();
-    newDynamicArray->push("wrong value");
+    newDynamicArray->push("temp");
     newDynamicArray->push("world");
     newDynamicArray->push("from");
     newDynamicArray->push("Jack");
@@ -82,6 +81,33 @@ int main()
     newDynamicArray->removeAt(5);
     newDynamicArray->set(0, "Hello");
     newDynamicArray->print();
+
+    cout << "---Array Based Stack---" << endl;
+    ArrayBasedStack<string>* newArrayBasedStack = new ArrayBasedStack<string>(10);
+    newArrayBasedStack->push("Hello");
+    newArrayBasedStack->push("World");
+    newArrayBasedStack->push("from");
+    newArrayBasedStack->push("Jack");
+    newArrayBasedStack->push("Do");
+    while (!newArrayBasedStack->isEmpty())
+    {
+        cout << newArrayBasedStack->top() << endl;
+        newArrayBasedStack->pop();
+    }
+
+    cout << "---LinkedList Based Stack---" << endl;
+    LinkedListBasedStack<string>* newLinkedListBasedStack = new LinkedListBasedStack<string>();
+    newLinkedListBasedStack->push("Hello");
+    newLinkedListBasedStack->push("World");
+    newLinkedListBasedStack->push("from");
+    newLinkedListBasedStack->push("Jack");
+    newLinkedListBasedStack->push("Do");
+
+    while (!newLinkedListBasedStack->isEmpty())
+    {
+        cout << newLinkedListBasedStack->top() << endl;
+        newLinkedListBasedStack->pop();
+    }
 
     return 0;
 }
