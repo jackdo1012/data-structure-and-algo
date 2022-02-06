@@ -1,3 +1,5 @@
+#include "./array.cpp"
+#include "./queue.cpp"
 #include "./search.cpp"
 #include "./sort.cpp"
 #include "./stack.cpp"
@@ -25,17 +27,26 @@ int main()
     int index;
     int* sorted;
 
-    /* sorted = sort.bubbleSort(testArr, size, -1); */
-    /* sorted = sort.selectionSort(testArr, size); */
-    sorted = sort.insetionSort(testArr, size, 1);
-
-    /* index = search.linearSearch(testArr, searchValue, size); */
-    /* index = search.binarySearch(sorted, searchValue, size); */
-    index = search.jumpSearch(sorted, searchValue, size);
-
-    cout << "Sorted array: ";
+    sorted = sort.bubbleSort(testArr, size, 1);
+    cout << "Bubble sort array: ";
     printArray(sorted, size);
-    cout << "Index: " << index << endl;
+
+    sorted = sort.selectionSort(testArr, size, 1);
+    cout << "Selection sort array: ";
+    printArray(sorted, size);
+
+    sorted = sort.insetionSort(testArr, size, 1);
+    cout << "Insertion sort array: ";
+    printArray(sorted, size);
+
+    index = search.linearSearch(testArr, searchValue, size);
+    cout << "Linear search index: " << index << endl;
+
+    index = search.binarySearch(sorted, searchValue, size);
+    cout << "Binary search index: " << index << endl;
+
+    index = search.jumpSearch(sorted, searchValue, size);
+    cout << "Jump search index: " << index << endl;
 
     cout << "-----------------Data Structure-----------------" << endl;
     cout << "---Singly Linked List---" << endl;
@@ -107,6 +118,42 @@ int main()
     {
         cout << newLinkedListBasedStack->top() << endl;
         newLinkedListBasedStack->pop();
+    }
+
+    cout << "---Array Based Queue---" << endl;
+    CircularArrayBasedQueue<string>* newArrayBasedQueue = new CircularArrayBasedQueue<string>(10);
+    newArrayBasedQueue->enqueue("Hello1");
+    newArrayBasedQueue->enqueue("Hello2");
+    newArrayBasedQueue->enqueue("Hello3");
+    newArrayBasedQueue->enqueue("Hello4");
+    newArrayBasedQueue->enqueue("Hello5");
+    newArrayBasedQueue->enqueue("Hello6");
+    newArrayBasedQueue->enqueue("Hello7");
+    newArrayBasedQueue->enqueue("Hello8");
+    newArrayBasedQueue->enqueue("Hello9");
+    newArrayBasedQueue->enqueue("Hello10");
+    while (!newArrayBasedQueue->isEmpty())
+    {
+        cout << newArrayBasedQueue->peek() << endl;
+        newArrayBasedQueue->dequeue();
+    }
+
+    cout << "---Linked List Based Queue---" << endl;
+    LinkedListBasedQueue<string>* newLinkedListBasedQueue = new LinkedListBasedQueue<string>();
+    newLinkedListBasedQueue->enqueue("Hello1");
+    newLinkedListBasedQueue->enqueue("Hello2");
+    newLinkedListBasedQueue->enqueue("Hello3");
+    newLinkedListBasedQueue->enqueue("Hello4");
+    newLinkedListBasedQueue->enqueue("Hello5");
+    newLinkedListBasedQueue->enqueue("Hello6");
+    newLinkedListBasedQueue->enqueue("Hello7");
+    newLinkedListBasedQueue->enqueue("Hello8");
+    newLinkedListBasedQueue->enqueue("Hello9");
+    newLinkedListBasedQueue->enqueue("Hello10");
+    while (!newLinkedListBasedQueue->isEmpty())
+    {
+        cout << newLinkedListBasedQueue->peek() << endl;
+        newLinkedListBasedQueue->dequeue();
     }
 
     return 0;

@@ -1,3 +1,4 @@
+#pragma once
 #include "./array.cpp"
 #include "./linkedList.cpp"
 #include "header.h"

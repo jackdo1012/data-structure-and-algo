@@ -1,3 +1,4 @@
+#pragma once
 #include "header.h"
 
 template <typename T>
@@ -428,7 +429,8 @@ public:
     void clear() override
     {
         DLLNode<T>* processing = this->head;
-        head = NULL;
+        this->head = NULL;
+        this->tail = NULL;
         for (int i = 0; i < size; i++)
         {
             DLLNode<T>* temp = processing;
@@ -584,11 +586,10 @@ public:
         {
             throw new invalid_argument("List is empty");
         }
-        DLLNode<T>* temp = this->head;
-        this->head = temp->getNext();
         if (this->size == 0)
         {
             this->head = NULL;
+            this->tail = NULL;
         }
         else if (this->size == 1)
         {
@@ -597,9 +598,11 @@ public:
         }
         else
         {
+            DLLNode<T>* temp = this->head;
+            this->head = temp->getNext();
             this->head->setPrev(NULL);
+            free(temp);
         }
-        free(temp);
         this->size--;
     }
 
