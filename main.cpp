@@ -1,4 +1,5 @@
 #include "./array.cpp"
+#include "./binaryTree.cpp"
 #include "./queue.cpp"
 #include "./search.cpp"
 #include "./sort.cpp"
@@ -155,6 +156,17 @@ int main()
         cout << newLinkedListBasedQueue->peek() << endl;
         newLinkedListBasedQueue->dequeue();
     }
+    cout << "---Binary Search Tree---" << endl;
+    BinarySearchTree<int>* newBinarySearchTree = new BinarySearchTree<int>();
+    newBinarySearchTree->add(0);
+    newBinarySearchTree->add(100);
+    newBinarySearchTree->add(70);
+    newBinarySearchTree->add(80);
+    newBinarySearchTree->add(50);
+    newBinarySearchTree->add(150);
+    newBinarySearchTree->remove(0);
+    DynamicArray<int>* binarySearchTree = newBinarySearchTree->traverse(TraverseType::IN_ORDER);
+    binarySearchTree->print();
 
     return 0;
 }
