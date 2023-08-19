@@ -520,9 +520,10 @@ public:
                     this->removeLast();
                     return;
                 }
-                free(temp->getNext());
-                temp->setNext(temp->getNext()->getNext());
+                DLLNode<T>* removeNode = temp->getNext();
+                temp->setNext(removeNode->getNext());
                 temp->getNext()->setPrev(temp);
+                free(removeNode);
                 size--;
                 return;
             }
